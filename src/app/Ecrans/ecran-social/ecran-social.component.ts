@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { UserDto } from '../../services/models/user-dto';
+import { UserDto } from '../../api/models/user-dto';
 import { TokenDecodeService } from '../../services/token/token-decode.service';
-import { FriendshipControllerService } from '../../services/services/friendship-controller.service';
-import { FriendshipDto } from '../../services/models/friendship-dto';
+import { FriendshipControllerService } from '../../api/services/friendship-controller.service';
+import { FriendshipDto } from '../../api/models/friendship-dto';
 
 /**
  * @component EcranSocialComponent
@@ -56,7 +56,7 @@ export class EcranSocialComponent {
 
         console.log(" Amis acceptés récupérés :", this.friends);
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error(" Erreur lors de la récupération des amis :", err);
       }
     });
@@ -87,12 +87,12 @@ export class EcranSocialComponent {
             console.log(` Amitié avec ${friend.username} supprimée.`);
             this.friends = this.friends.filter(f => f.id !== friend.id);
           },
-          error: (err) => {
+          error: (err: any) => {
             console.error(" Erreur lors de la suppression :", err);
           }
         });
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error(" Erreur lors de la récupération de l'amitié :", err);
       }
     });

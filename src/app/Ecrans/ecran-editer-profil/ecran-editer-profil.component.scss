@@ -1,187 +1,109 @@
-/* Style du cadre bleu en haut */
-
-.header {
-  background-color: #221E55; /* Fond bleu pour le cadre */
-  display: flex; /* Utilise Flexbox pour disposer les éléments horizontalement */
-  justify-content: space-between; /* Espace égal entre les éléments */
-  align-items: center; /* Centre verticalement les éléments */
-  padding: 1rem 2rem; /* Espacement interne autour du contenu */
-  color: white; /* Texte en blanc pour les éléments du header */
-}
-
-
-.logo {
-  color: white; /* Couleur blanche pour le logo */
-  font-size: 1.8rem; /* Taille du texte du logo */
-  font-weight: bold; /* Met le logo en gras */
-}
-
-.nav-link {
-  color: white; /* Lien en blanc */
-  font-size: 1rem; /* Taille du texte du lien */
-  text-decoration: none; /* Supprime le soulignement du lien */
-  padding: 0.5rem; /* Ajoute un peu d'espace autour du lien */
-  border-radius: 4px; /* Arrondi les bords du lien */
-}
-
-.nav-link:hover {
-  background-color: rgba(255, 255, 255, 0.2); /* Lien devient plus visible au survol */
-}
 :host {
-  display: block; /* Définit l'élément hôte comme un bloc pour prendre toute la largeur disponible */
-  min-height: 100vh; /* Définit une hauteur minimale de 100% de la hauteur de la fenêtre */
-}
-/* Style des champs de saisie */
-.mat {
-  width: 100%;
-  margin-bottom: 1rem; /* Espace entre les champs */
-  color: #4c67ec;
-  font-weight: bold; /* Met le texte en gras */
+  display: block;
+  min-height: 100vh;
 }
 
 .login-container {
-  background-color: #170B2F; /* Fond sombre pour le conteneur de connexion */
-  min-height: 100vh; /* Assure que le conteneur prend toute la hauteur de la fenêtre */
-  display: flex; /* Utilise Flexbox pour disposer les éléments en colonne */
-  flex-direction: column; /* Organise les éléments dans une colonne */
-}
-
-.header {
-  display: flex; /* Utilise Flexbox pour disposer les éléments horizontalement */
-  justify-content: space-between; /* Espace égal entre les éléments */
-  align-items: center; /* Centre verticalement les éléments */
-  padding: 1.5rem 3rem; /* Espacement interne autour du contenu */
-}
-
-.logo {
-  color: #d000bb; /* Couleur rose pour le logo */
-  font-size: 1.8rem; /* Taille du texte du logo */
-  font-weight: bold; /* Met le logo en gras */
+  min-height: 100vh;
+  background: #170b2f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  position: relative;
 }
 
 .main-content {
-  flex: 1; /* Permet au contenu principal de s'étendre */
-  display: flex; /* Utilise Flexbox pour disposer les éléments */
-  flex-direction: column; /* Dispose les éléments en colonne */
-  align-items: center; /* Centre horizontalement les éléments */
-  justify-content: center; /* Centre verticalement les éléments */
-  padding: 2rem; /* Ajoute un espacement interne autour du contenu */
+  width: 100%;
+  max-width: 460px;
+  background: rgba(34, 30, 85, 0.72);
+  border: 1px solid rgba(208, 0, 187, 0.45);
+  border-radius: 24px;
+  padding: 2.5rem;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(14px);
 }
 
 .title {
-  color: #d000bb; /* Couleur rose pour le titre */
-  font-size: 1.5rem; /* Taille du texte du titre */
-  margin-bottom: 2rem; /* Ajoute un espacement sous le titre */
-  text-align: center; /* Centre le texte du titre */
+  color: #ffffff;
+  font-size: 1.8rem;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
 .login-form {
-  width: 100%; /* Le formulaire prend toute la largeur disponible */
-  max-width: 400px; /* Définit une largeur maximale pour le formulaire */
-  display: flex; /* Utilise Flexbox pour organiser les éléments */
-  flex-direction: column; /* Organise les éléments en colonne */
-  gap: 1.5rem; /* Ajoute un espacement entre les éléments */
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
 }
 
-button[mat-icon-button] mat-icon {
-  font-size: 1.2rem; /* Taille de l'icône de la croix */
-  color: #d000bb; /* Couleur rose pour l'icône */
-}
-input [mat-icon-button] {
-  color: white; /* Définit la couleur du texte sur l'input */
-}
-
-button[mat-icon-button]:hover mat-icon {
-  color: #b30080;  /* Couleur rose plus foncée lors du survol de la croix */
-}
-
-
-/* Style du bouton "Valider" */
-.button-group button {
-
-  background-color: #d000bb; /* Couleur de fond du bouton (rose) */
-  border-radius: 2rem; /* Bord arrondi pour le bouton */
-
-  font-size: 1rem; /* Taille du texte du bouton */
-  color: white; /* Texte blanc pour le bouton */
-  width: 100%; /* Le bouton prend toute la largeur disponible */
-  cursor: pointer; /* Modifie le curseur pour un bouton cliquable */
-  transition: background-color 0.2s ease; /* Effet de transition pour la couleur de fond */
-}
-.button-group button:hover {
-  background-color: #b30080;
-}
-
-
-
-input[matInput] {
-
-  padding: 0.75rem 1rem; /* Espacement interne dans l'input */
-  width: 80%; /* Allonge la largeur du champ à 100% de son parent */
-  /*color: white !important; /* Forcer la couleur blanche */
-
-}
-
-
-/* Croix positionnée absolument à l'intérieur de l'input */
-button[mat-icon-button] {
-  position: absolute; /* Positionne la croix à l'intérieur de l'input */
-  right: 10px; /* Positionne la croix à droite */
-  top: 25%; /* Centre la croix verticalement */
-
+.form-group,
+.mat {
+  width: 100%;
 }
 
 .button-group {
   display: flex;
-  gap: 10px; /* Ajoute un espace de 10px entre les boutons */
-  justify-content: center; /* Centre les boutons horizontalement */
+  gap: 1rem;
+  margin-top: 0.5rem;
 }
 
-.btn {
-  min-width: 120px; /* Permet d'avoir des boutons de taille cohérente */
-}
-/* Icône ronde cliquable à gauche */
-.icon-btn {
-  width: 200px;
-  height:200px;
-  position: absolute;
-  left: 220px; /* Positionne l'icône à gauche */
-  top: 350px; /* Positionne l'icône un peu en dessous du haut de l'écran */
-  background-color: #221E55; /* Couleur de fond de l'icône */
-  border-radius: 50%; /* Fait de l'élément un cercle */
-  border: none; /* Pas de bordure */
-  cursor: pointer; /* Change le curseur pour une main cliquable */
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.button-group button {
+  flex: 1;
+  border-radius: 999px;
+  padding: 0.8rem 1rem;
+  font-weight: 700;
 }
 
-.icon-btn mat-icon {
+.button-group button:first-child {
+  background-color: #d000bb;
   color: white;
-  font-size: 36px; /* Taille de l'icône */
-}
-/* Style du formulaire de connexion */
-.login-form {
-  width: 100%; /* Le formulaire prend toute la largeur disponible */
-  max-width: 400px; /* Définit une largeur maximale pour le formulaire */
-  display: flex; /* Utilise Flexbox pour organiser les éléments */
-  flex-direction: column; /* Organise les éléments en colonne */
-  gap: 1.5rem; /* Ajoute un espacement entre les éléments */
-  padding: 1.5rem; /* Ajoute un espacement interne autour du formulaire */
-  border: 2px solid #d000bb; /* Contour rose autour du formulaire */
-  border-radius: 8px; /* Bord arrondi pour le formulaire */
-  transition: box-shadow 0.3s ease; /* Effet de transition pour l'ombre */
 }
 
-/* Effet de survol du formulaire */
-.login-form:hover {
-  box-shadow: 0px 0px 10px rgba(208, 0, 187, 0.6); /* Ombre rose au survol */
+.button-group button:first-child:hover {
+  background-color: #b300a3;
 }
 
-/* Style des champs de saisie */
-.mat {
-  width: 100%;
-  margin-bottom: 1rem; /* Espace entre les champs */
-  color: #4c67ec;
-  font-weight: bold; /* Met le texte en gras */
+.button-group button:last-child {
+  background-color: rgba(255, 255, 255, 0.12);
+  color: white;
+}
+
+button[mat-icon-button] {
+  color: #d000bb;
+}
+
+.icon-btn {
+  position: absolute;
+  left: clamp(2rem, 10vw, 12rem);
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 2px solid rgba(208, 0, 187, 0.5);
+  background:
+    linear-gradient(135deg, #221e55, #d000bb);
+  box-shadow: 0 20px 50px rgba(208, 0, 187, 0.3);
+  cursor: pointer;
+}
+
+.icon-btn::before {
+  content: "👤";
+  font-size: 4rem;
+}
+
+.icon-btn:hover {
+  transform: translateY(-4px) scale(1.03);
+  transition: 0.2s ease;
+}
+
+@media (max-width: 900px) {
+  .icon-btn {
+    position: static;
+    margin-top: 2rem;
+  }
+
+  .login-container {
+    flex-direction: column;
+  }
 }

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FriendshipControllerService } from '../../services/services/friendship-controller.service';
+import { FriendshipControllerService } from '../../api/services/friendship-controller.service';
 import { Router } from '@angular/router';
 import { TokenDecodeService } from '../../services/token/token-decode.service';
-import { UserDto } from '../../services/models/user-dto';
+import { UserDto } from '../../api/models/user-dto';
 import { CommonModule } from '@angular/common';
-import { FriendshipDto } from '../../services/models/friendship-dto';
+import { FriendshipDto } from '../../api/models/friendship-dto';
 
 /**
  * @component EcranNotificationsComponent
@@ -51,11 +51,11 @@ export class EcranNotificationsComponent implements OnInit {
    */
   private loadPendingRequests(): void {
     this.friendshipControllerService.getPendingRequests({ userId: this.userId! }).subscribe({
-      next: (requests) => {
+      next: (requests: UserDto[]) => {
         this.pendingRequests = requests;
         console.log(" Demandes d'amitié en attente :", this.pendingRequests);
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error(" Erreur lors de la récupération des demandes d'amitié :", err);
       }
     });
@@ -69,15 +69,15 @@ export class EcranNotificationsComponent implements OnInit {
    */
   private getFriendshipId(user1Id: number, user2Id: number): void {
     this.friendshipControllerService.getFriendshipBetweenUsers({ user1Id, user2Id }).subscribe({
-      next: (friendship) => {
-        if (friendship.id) {
+      next: (friendship: FriendshipDto) => {
+        if (friendship.id !== undefined) {
           this.acceptFriendRequest(friendship.id);
         } else {
-          console.error(" Aucune amitié trouvée entre les utilisateurs.");
+          console.error("Aucune amitié trouvée entre les utilisateurs.");
         }
       },
-      error: (err) => {
-        console.error(" Erreur lors de la récupération de l'ID de l'amitié :", err);
+      error: (err: unknown) => {
+        console.error("Erreur lors de la récupération de l'ID de l'amitié :", err);
       }
     });
   }
@@ -102,12 +102,12 @@ export class EcranNotificationsComponent implements OnInit {
    */
   private acceptFriendRequest(friendshipId: number): void {
     this.friendshipControllerService.acceptFriendRequest({ friendshipId }).subscribe({
-      next: (response) => {
+      next: (response: any) => {
         console.log(" Demande acceptée :", response);
         this.pendingRequests = this.pendingRequests.filter(request => request.id !== friendshipId);
         window.location.reload();
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error(" Erreur lors de l'acceptation de la demande d'amitié :", err);
       }
     });
@@ -139,12 +139,12 @@ export class EcranNotificationsComponent implements OnInit {
             this.friends = this.friends.filter(f => f.id !== friend.id);
             window.location.reload();
           },
-          error: (err) => {
+          error: (err: any) => {
             console.error(" Erreur lors de la suppression :", err);
           }
         });
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error(" Erreur lors de la récupération de l'amitié :", err);
       }
     });

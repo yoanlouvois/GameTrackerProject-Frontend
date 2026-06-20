@@ -7,24 +7,53 @@
 
 .header {
   width: 100%;
-  background: #221E55;
-  padding: 10px 5%;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  background:
+    linear-gradient(
+        135deg,
+        rgba(34, 30, 85, 0.95),
+        rgba(23, 11, 47, 0.95)
+    );
+
+  backdrop-filter: blur(14px);
+
+  border-bottom: 1px solid rgba(208, 0, 187, 0.25);
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.25),
+    0 0 30px rgba(208, 0, 187, 0.08);
+
+  padding: 14px 5%;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
 .logo {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-family: 'Orbitron', sans-serif;
-  color: #D000BB; /* Couleur par défaut */
-  font-weight: bold;
-  cursor: pointer; /* Ajout du curseur pointer pour le rendre cliquable */
-  transition: color 0.3s ease; /* Transition fluide sur les changements */
+  font-weight: 700;
+
+  background: linear-gradient(
+      90deg,
+      #ffffff,
+      #d000bb,
+      #4c67ec
+  );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  cursor: pointer;
+  transition: all 0.25s ease;
 }
 
 .logo:hover {
-  color: #9A0080; /* Couleur de surbrillance au survol : plus sombre */
+  transform: scale(1.05);
 }
 
 .logo:active {
@@ -33,52 +62,83 @@
 
 .nav {
   display: flex;
-  gap: 15px;
+  gap: 10px;
 }
 
 .nav div {
-  font-size: 0.9rem;
-  color: #FFFFFF; /* Ajout de la couleur blanche */
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+
+  padding: 10px 16px;
+  border-radius: 999px;
+
   cursor: pointer;
-  transition: color 0.3s;
-  font-family: 'Inter', serif;
+
+  transition: all 0.2s ease;
 }
 
 .nav div:hover {
-  color: #D000BB;
+  background: rgba(255,255,255,0.08);
+  color: #d000bb;
 }
 
 .nav-profile {
   display: flex;
-  gap: 15px; /* Espacement entre les éléments .nav et .profile */
   align-items: center;
+  gap: 1rem;
 }
 
 .profile {
-  background: #D000BB;
-  padding: 8px 15px;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: opacity 0.3s;
+  background: linear-gradient(
+      135deg,
+      #d000bb,
+      #9b00d4
+  );
+
   color: white;
-  font-family: 'Inter',serif;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+
+  padding: 10px 18px;
+
+  border-radius: 999px;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 10px 25px rgba(208, 0, 187, 0.25);
+
+  transition: all 0.25s ease;
 }
 
 .profile:hover {
-  opacity: 0.8;
+  transform: translateY(-2px);
+  box-shadow:
+    0 14px 30px rgba(208, 0, 187, 0.4);
 }
 
 /* Adaptation pour les petits écrans */
 @media (max-width: 768px) {
   .header {
     flex-direction: column;
-    align-items: center;
-    padding: 15px;
+    gap: 1rem;
+    padding: 1rem;
   }
 
   .nav {
     flex-wrap: wrap;
     justify-content: center;
+  }
+
+  .nav-profile {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .profile {
+    width: 100%;
+    text-align: center;
   }
 }

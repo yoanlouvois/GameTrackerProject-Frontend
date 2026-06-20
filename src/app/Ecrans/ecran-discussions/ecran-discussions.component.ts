@@ -1,12 +1,12 @@
 import { Component, ViewChild, ElementRef, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { UserDto } from '../../services/models/user-dto';
+import { UserDto } from '../../api/models/user-dto';
 import { TokenDecodeService } from '../../services/token/token-decode.service';
-import { MessageControllerService } from '../../services/services/message-controller.service';
-import { MessageDto } from '../../services/models/message-dto';
-import { PageMessageDto } from '../../services/models/page-message-dto';
-import { FriendshipControllerService } from '../../services/services/friendship-controller.service';
-import { SendMessage$Params } from '../../services/fn/message-controller/send-message';
+import { MessageControllerService } from '../../api/services/message-controller.service';
+import { MessageDto } from '../../api/models/message-dto';
+import { PageMessageDto } from '../../api/models/page-message-dto';
+import { FriendshipControllerService } from '../../api/services/friendship-controller.service';
+import { SendMessage$Params } from '../../api/fn/message-controller/send-message';
 import { CommonModule } from '@angular/common';
 
 /**
@@ -71,7 +71,7 @@ export class EcranDiscussionsComponent implements OnInit {
    */
   private loadFriendData(friendName: string) {
     this.friendshipControllerService.getAllFriendshipsForUser({ userId: this.userId! }).subscribe({
-      next: (friendships) => {
+      next: (friendships: any[]) => {
         const friendship = friendships.find(f =>
           (f.user1?.username === friendName || f.user2?.username === friendName)
         );
@@ -87,7 +87,7 @@ export class EcranDiscussionsComponent implements OnInit {
           console.error("Amitié introuvable avec", friendName);
         }
       },
-      error: (err) => console.error("Erreur lors de la récupération des amis", err)
+      error: (err: any) => console.error("Erreur lors de la récupération des amis", err)
     });
   }
 
@@ -107,7 +107,7 @@ export class EcranDiscussionsComponent implements OnInit {
         this.messages = conversation.content || [];
         this.scrollToBottom(); // Faire défiler vers le dernier message
       },
-      error: (err) => console.error("Erreur lors de la récupération des messages", err)
+      error: (err: any) => console.error("Erreur lors de la récupération des messages", err)
     });
   }
 
@@ -142,12 +142,12 @@ export class EcranDiscussionsComponent implements OnInit {
 
     // Envoi du message via le service
     this.messageControllerService.sendMessage(params).subscribe({
-      next: (sentMessage) => {
+      next: (sentMessage: any) => {
         this.messages.push(sentMessage);
         this.cdr.detectChanges(); // Forcer l'affichage du nouveau message
         this.scrollToBottom(); // Faire défiler vers le bas
       },
-      error: (err) => console.error("Erreur lors de l'envoi du message", err)
+      error: (err: any) => console.error("Erreur lors de l'envoi du message", err)
     });
 
     input.value = ""; // Réinitialiser le champ de saisie

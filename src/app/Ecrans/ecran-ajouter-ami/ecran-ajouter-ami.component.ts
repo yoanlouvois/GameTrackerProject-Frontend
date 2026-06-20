@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FriendshipControllerService, UserControllerService } from '../../services/services';
+import { FriendshipControllerService, UserControllerService } from '../../api/services';
 import { MatIcon } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { TokenService } from '../../services/token/token.service';
 import { TokenDecodeService } from '../../services/token/token-decode.service';
 import { MatButton, MatIconButton } from '@angular/material/button';
+import {UserDto} from '../../api/models/user-dto';
 
 /**
  * @component EcranAjouterAmiComponent
@@ -74,7 +75,7 @@ export class EcranAjouterAmiComponent implements OnInit {
 
     // Étape 1 : Convertir le pseudo en ID utilisateur
     this.userControllerService.getUserByUsername({ username: this.ami }).subscribe({
-      next: (user) => {
+      next: (user: UserDto) => {
         if (user && user.id) {
           const amiId = user.id; // ID de l'ami récupéré
 
@@ -94,7 +95,7 @@ export class EcranAjouterAmiComponent implements OnInit {
               alert(`Demande d'amitié envoyée à ${this.ami} (ID: ${amiId})!`);
               this.router.navigate(['/Social']); // Redirection après succès
             },
-            error: (err) => {
+            error: (err: any) => {
               console.error('Erreur lors de l’envoi de la demande :', err);
               alert("Erreur lors de l’envoi de la demande d'amitié.");
             }
@@ -103,7 +104,7 @@ export class EcranAjouterAmiComponent implements OnInit {
           alert(`Utilisateur "${this.ami}" introuvable.`);
         }
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error(`Erreur lors de la récupération de l'utilisateur :`, err);
         alert(`Erreur lors de la recherche de l'utilisateur "${this.ami}".`);
       }

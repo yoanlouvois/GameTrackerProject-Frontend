@@ -1,35 +1,40 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GestionGameService } from '../../services/gestion-game.service'; // Ajustez le chemin si nécessaire
-import { GameDto } from '../../services/models/game-dto'; // Ajustez le chemin si nécessaire
-import { Observable } from 'rxjs';
-import { GameCardComponent } from '../game-card/game-card.component'; // Ce composant sera créé à l'étape suivante
+
+import { GameControllerService } from '../../api/services/game-controller.service';
+import { GameDto } from '../../api/models/game-dto';
+import { GameCardComponent } from '../game-card/game-card.component';
 
 @Component({
   selector: 'app-game-list',
-  standalone: true, // Je remarque que vous semblez utiliser les composants standalone d'Angular
+  standalone: true,
   imports: [CommonModule, GameCardComponent],
   templateUrl: './game-list.component.html',
   styleUrl: './game-list.component.scss'
 })
 export class GameListComponent implements OnInit {
-  games$: Observable<GameDto[]>;
+  games: GameDto[] = [];
   loading = true;
 
-  constructor(private gameService: GestionGameService) {
-    this.games$ = this.gameService.games$;
-  }
+  constructor(private gameControllerService: GameControllerService) {}
 
   ngOnInit(): void {
-    // Charger tous les jeux
-    this.gameService.loadAllGames().subscribe({
-      next: () => {
+    this.gameControllerService.getAllGames({
+      pageable: {
+        page: 0,
+        size: 100,
+        sort: ['name,asc']
+      }
+    }).subscribe({
+      next: (pageData) => {
+        this.games = pageData.content ?? [];
         this.loading = false;
-        console.log('Jeux chargés avec succès');
+        console.log('Jeux chargés :', this.games);
       },
       error: (error) => {
-        this.loading = false;
         console.error('Erreur lors du chargement des jeux', error);
+        this.games = [];
+        this.loading = false;
       }
     });
   }

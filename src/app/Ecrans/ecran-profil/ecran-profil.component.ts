@@ -3,11 +3,11 @@ import {MatButton} from '@angular/material/button';
 import {Router} from '@angular/router';
 import {TokenService} from '../../services/token/token.service';
 import { TokenDecodeService } from '../../services/token/token-decode.service';
-import { UserControllerService } from '../../services/services/user-controller.service'; // Import du service généré
-import { UserDto } from '../../services/models/user-dto'; // Import du modèle utilisateur
-import { FriendshipControllerService } from '../../services/services/friendship-controller.service';
-import { UserAchievementControllerService } from '../../services/services/user-achievement-controller.service';
-import { GameProgressControllerService } from '../../services/services/game-progress-controller.service';
+import { UserControllerService } from '../../api/services/user-controller.service'; // Import du service généré
+import { UserDto } from '../../api/models/user-dto'; // Import du modèle utilisateur
+import { FriendshipControllerService } from '../../api/services/friendship-controller.service';
+import { UserAchievementControllerService } from '../../api/services/user-achievement-controller.service';
+import { GameProgressControllerService } from '../../api/services/game-progress-controller.service';
 
 @Component({
   selector: 'app-ecran-profil',
@@ -69,7 +69,7 @@ export class EcranProfilComponent implements OnInit{
         this.username = user.username; // Récupération du nom d'utilisateur
         console.log('Nom d’utilisateur récupéré:', this.username);
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Erreur lors de la récupération de l’utilisateur:', err);
       },
     });
@@ -87,7 +87,7 @@ export class EcranProfilComponent implements OnInit{
         this.friendsCount = count; // Assigne le nombre d'amis
         console.log(`Nombre d'amis récupéré :`, this.friendsCount);
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Erreur lors de la récupération du nombre d’amis:', err);
       },
     });
@@ -105,7 +105,7 @@ export class EcranProfilComponent implements OnInit{
         this.totalPoints = points; // Assigne le total des points
         console.log(`Total des points d'achievements récupéré :`, this.totalPoints);
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Erreur lors de la récupération des points d’achievements:', err);
       },
     });
@@ -123,7 +123,7 @@ export class EcranProfilComponent implements OnInit{
         this.hoursCount = playtime;
         console.log('Temps total de jeu récupéré :', this.hoursCount);
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Erreur lors de la récupération du temps de jeu :', err);
       },
     });

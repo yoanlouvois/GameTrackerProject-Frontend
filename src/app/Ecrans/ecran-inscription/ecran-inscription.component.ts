@@ -1,41 +1,41 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { UserDto } from '../../services/models/user-dto';
-import { createUser } from '../../services/fn/user-controller/create-user';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
-// Importez les modules complets
+import { UserDto } from '../../api/models/user-dto';
+import { UserControllerService } from '../../api/services/user-controller.service';
+
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input'; // Important!
+import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-ecran-inscription',
   templateUrl: './ecran-inscription.component.html',
-  standalone: true, // Définir à true pour utiliser imports au niveau du composant
+  standalone: true,
   imports: [
     CommonModule,
     FormsModule,
     MatIconModule,
     MatFormFieldModule,
-    MatInputModule, // Nécessaire pour matInput
-    MatButtonModule // Pour les boutons mat-raised-button
+    MatInputModule,
+    MatButtonModule
   ],
   styleUrls: ['./ecran-inscription.component.scss']
 })
 export class EcranInscriptionComponent {
-  username: string = '';
-  email: string = '';
-  password: string = '';
+  username = '';
+  email = '';
+  password = '';
 
-  // Déclarez les dépendances nécessaires
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private userControllerService: UserControllerService,
+    private router: Router
+  ) {}
 
-  // Méthode d'inscription
-  createUser() {
+  createUser(): void {
     if (!this.username || !this.email || !this.password) {
       alert('Tous les champs sont obligatoires');
       return;
@@ -44,37 +44,34 @@ export class EcranInscriptionComponent {
     const newUser: UserDto = {
       username: this.username,
       email: this.email,
-      password: this.password,
+      password: this.password
     };
 
-    // Appel direct de la méthode `createUser`
-    createUser(this.http, 'http://localhost:8081', { body: newUser })
-      .subscribe({
-        next: (response) => {
-          console.log('Utilisateur créé avec succès :', response);
-          alert('Inscription réussie ! Vous allez être redirigé vers la page de connexion.');
-          this.router.navigate(['/Connexion']);
-        },
-        error: (err) => {
-          console.error('Erreur lors de la création de l\'utilisateur :', err);
+    this.userControllerService.createUser({ body: newUser }).subscribe({
+      next: (response) => {
+        console.log('Utilisateur créé avec succès :', response);
+        alert('Inscription réussie ! Vous allez être redirigé vers la page de connexion.');
+        this.router.navigate(['/Connexion']);
+      },
+      error: (err) => {
+        console.error('Erreur lors de la création de l\'utilisateur :', err);
 
-          if (err.status === 400) {
-            alert('Champs invalides. Veuillez vérifier les informations saisies.');
-          } else if (err.status === 500) {
-            alert('Erreur serveur. Veuillez réessayer plus tard.');
-          } else {
-            alert('Une erreur est survenue. Veuillez réessayer.');
-          }
-        },
-      });
+        if (err.status === 400) {
+          alert('Champs invalides. Veuillez vérifier les informations saisies.');
+        } else if (err.status === 500) {
+          alert('Erreur serveur. Veuillez réessayer plus tard.');
+        } else {
+          alert('Une erreur est survenue. Veuillez réessayer.');
+        }
+      }
+    });
   }
 
-  // Navigation vers d'autres pages
-  goToConnexion() {
+  goToConnexion(): void {
     this.router.navigate(['/Connexion']);
   }
 
-  goToAccueil() {
+  goToAccueil(): void {
     this.router.navigate(['/Home']);
   }
 }

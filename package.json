@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:mon-premier-projet": "node dist/mon-premier-projet/server/server.mjs",
-    "api-gen": "ng-openapi-gen --input ./src/openapi/openapi.json --output ./src/app/services"
+    "api-gen": "ng-openapi-gen --input ./src/openapi/openapi.json --output ./src/app/api"
   },
   "private": true,
   "dependencies": {

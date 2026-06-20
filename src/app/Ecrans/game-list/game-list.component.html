@@ -1,17 +1,16 @@
-<!-- game-list.component.html -->
-<div class="games-container">
-  <div *ngIf="loading" class="loading-spinner">
-    <p>Chargement des jeux...</p>
-    <!-- Vous pouvez ajouter un spinner ici si vous le souhaitez -->
-  </div>
+<div *ngIf="loading" class="loading-container">
+  <div class="spinner"></div>
+  <p>Chargement des jeux...</p>
+</div>
 
-  <div class="games-grid" *ngIf="!loading">
-    <ng-container *ngIf="(games$ | async) as games">
-      <app-game-card *ngFor="let game of games" [game]="game"></app-game-card>
+<div *ngIf="!loading && games.length === 0" class="empty-state">
+  <h3>Aucun jeu trouvé</h3>
+  <p>Essayez de modifier vos critères de recherche.</p>
+</div>
 
-      <div *ngIf="games.length === 0" class="no-games">
-        <p>Aucun jeu disponible pour le moment.</p>
-      </div>
-    </ng-container>
-  </div>
+<div *ngIf="!loading && games.length > 0" class="games-grid">
+  <app-game-card
+    *ngFor="let game of games"
+    [game]="game">
+  </app-game-card>
 </div>

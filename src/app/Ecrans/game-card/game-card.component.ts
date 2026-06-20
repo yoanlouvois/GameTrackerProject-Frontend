@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
-import { GameDto } from '../../services/models/game-dto'; // Ajustez le chemin si nécessaire
+import { GameDto } from '../../api/models/game-dto'; // Ajustez le chemin si nécessaire
 
 @Component({
   selector: 'app-game-card',

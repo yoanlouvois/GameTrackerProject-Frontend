@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
-import { GestionGameService } from '../../services/gestion-game.service';
-import { GameDto } from '../../services/models/game-dto';
-//import { Observable, switchMap, of } from 'rxjs';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import {Game} from '../../services/models/game';
-import { RouterModule } from '@angular/router';
+
+import { GameControllerService } from '../../api/services/game-controller.service';
+import { Game } from '../../api/models/game';
 
 @Component({
   selector: 'app-ecran-jeu',
@@ -23,39 +21,38 @@ export class EcranJeuComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private gameService: GestionGameService,
+    private gameControllerService: GameControllerService,
     private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit(): void {
-    // Au lieu de route.paramMap, essayez directement
     this.route.params.subscribe(params => {
       const gameName = params['name'];
-      //console.log('Nom du jeu depuis params:', gameName);
 
-      if (gameName) {
-        this.gameService.getGameByName(gameName).subscribe({
-          next: (game) => {
-            //console.log('Jeu trouvé:', game);
-            this.game = game;
-
-            if (this.game && this.game.url) {
-              this.safeGameUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.game.url);
-            }
-
-            this.loading = false;
-          },
-          error: (error) => {
-            console.error('Erreur:', error);
-            this.loading = false;
-            this.error = "Erreur lors du chargement du jeu";
-          }
-        });
-      } else {
-        //console.log('Paramètre name non trouvé dans l\'URL');
+      if (!gameName) {
         this.loading = false;
-        this.error = "Nom du jeu non spécifié";
+        this.error = 'Nom du jeu non spécifié';
+        return;
       }
+
+      this.gameControllerService.getGamesByName({ name: gameName }).subscribe({
+        next: (games: Game[]) => {
+          this.game = games.length > 0 ? games[0] : undefined;
+
+          if (!this.game) {
+            this.error = 'Jeu introuvable';
+          } else if (this.game.url) {
+            this.safeGameUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.game.url);
+          }
+
+          this.loading = false;
+        },
+        error: (error: unknown) => {
+          console.error('Erreur:', error);
+          this.loading = false;
+          this.error = 'Erreur lors du chargement du jeu';
+        }
+      });
     });
-    }
+  }
 }
