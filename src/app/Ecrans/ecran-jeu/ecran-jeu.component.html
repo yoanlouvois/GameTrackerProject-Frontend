@@ -22,6 +22,72 @@
             allowfullscreen>
     </iframe>
 
+    <section class="game-social-section">
+
+      <h2>Commentaires</h2>
+
+      <div *ngIf="!isLoggedIn" class="login-warning">
+        <p>Connectez-vous pour ajouter un commentaire ou répondre.</p>
+      </div>
+
+      <div *ngIf="isLoggedIn" class="add-comment">
+    <textarea
+      [(ngModel)]="newCommentContent"
+      placeholder="Écrire un commentaire..."
+    ></textarea>
+
+        <button (click)="addComment()">Publier</button>
+      </div>
+
+      <div *ngIf="comments.length === 0">
+        <p>Aucun commentaire pour ce jeu.</p>
+      </div>
+
+      <div *ngFor="let comment of comments" class="comment-card">
+        <p>{{ comment.content }}</p>
+
+        <div class="comment-actions">
+          <button *ngIf="isLoggedIn" (click)="toggleReply(comment.id)">
+            Répondre
+          </button>
+
+          <button *ngIf="isMyComment(comment)" (click)="startEdit(comment)">
+            Modifier
+          </button>
+
+          <button *ngIf="isMyComment(comment)" (click)="deleteComment(comment.id)">
+            Supprimer
+          </button>
+
+          <button (click)="loadReplies(comment.id)">
+            Afficher les réponses
+          </button>
+        </div>
+
+        <div *ngIf="editingCommentId === comment.id">
+          <textarea [(ngModel)]="editedCommentContent"></textarea>
+          <button (click)="updateComment(comment.id)">Enregistrer</button>
+          <button (click)="cancelEdit()">Annuler</button>
+        </div>
+
+        <div *ngIf="replyingToCommentId === comment.id">
+      <textarea
+        [(ngModel)]="replyContent"
+        placeholder="Votre réponse..."
+      ></textarea>
+          <button (click)="addReply(comment.id)">Envoyer</button>
+        </div>
+
+        <ng-container *ngIf="comment.id as commentId">
+          <div *ngIf="repliesByCommentId[commentId]">
+            <div *ngFor="let reply of repliesByCommentId[commentId]" class="reply-card">
+              <p>{{ reply.content }}</p>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </section>
+
     <div *ngIf="!safeGameUrl" class="no-game-url">
       <p>Le lien vers ce jeu n'est pas disponible.</p>
     </div>

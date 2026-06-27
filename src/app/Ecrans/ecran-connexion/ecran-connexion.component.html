@@ -3,15 +3,20 @@
     <h1 class="title">Connexion</h1>
 
     <form class="login-form">
-      <div class="form-group">
-        <mat-form-field class="mat" appearance="outline">
-          <mat-label>Pseudo</mat-label>
-          <input matInput [(ngModel)]="authRequest.login" name="username" placeholder="Entrez votre pseudo">
-          <button *ngIf="authRequest.login" mat-icon-button aria-label="Clear" (click)="authRequest.login=''">
-            <mat-icon>✖</mat-icon>
-          </button>
-        </mat-form-field>
-      </div>
+      <mat-form-field class="mat" appearance="outline">
+        <mat-label>Email</mat-label>
+        <input
+          matInput
+          type="email"
+          [(ngModel)]="authRequest.login"
+          name="email"
+          placeholder="Entrez votre adresse email"
+          autocomplete="email"
+        >
+        <button *ngIf="authRequest.login" mat-icon-button type="button" aria-label="Clear" (click)="authRequest.login=''">
+          <mat-icon>✖</mat-icon>
+        </button>
+      </mat-form-field>
 
       <div class="form-group">
         <mat-form-field class="mat" appearance="outline">
