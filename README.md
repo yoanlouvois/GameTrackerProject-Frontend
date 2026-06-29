@@ -8,9 +8,13 @@ L'application permet aux utilisateurs de découvrir de nouveaux jeux, gérer leu
 
 Le frontend est **conteneurisé avec Docker** et servi par **Nginx**. Il communique avec le backend via une **API REST**.
 
+
 <p align="center">
-  <img width="75%" alt="GameTracker" src="https://github.com/user-attachments/assets/af2d4bb9-663d-47fb-a6bb-d61e3c4242e0" />
+  <img src="https://github.com/user-attachments/assets/a9642a87-d1a6-4757-ae98-701fba457dfe" alt="Liste des jeux" width="49%"/>
+  <img src="https://github.com/user-attachments/assets/bd615b60-e1e0-46e9-9a3c-ced1c7e2c0de" alt="Accueil" width="49%"/>
 </p>
+
+
 
 ### Dépôts associés
 
